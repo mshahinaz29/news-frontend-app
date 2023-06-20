@@ -12,6 +12,13 @@ export default function Dropdown() {
         setShow(!show)
     }
 
+    const handleLogout = () => {
+        setShow(!show)
+        logout()
+    }
+
+    
+
     return (
         <div className="inline-flex rounded-full">
             <div className="relative">
@@ -31,7 +38,7 @@ export default function Dropdown() {
                             Preferences
                         </Link>
                         <button
-                            onClick={logout}
+                            onClick={handleLogout}
                             className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700"
                         >
                             Logout

@@ -24,12 +24,11 @@ export const AuthProvider = ({ children}) => {
     }
 
     const login = async({...data}) => {
+        setLoading(true);
         await csrf();
         setErrors([])
         try{
-            await axios.post('/login', data).then(response => {                
-                alert('success')
-                
+            await axios.post('/login', data).then(response => {
                 navigate("/")
             }).catch(err => {
                 if(err.response.status === 422)
@@ -40,14 +39,15 @@ export const AuthProvider = ({ children}) => {
             if(e.response.status === 422)
                     setErrors(e.response.data.errors)
         }
+        setLoading(false);
     }
 
     const register = async({...data}) => {
+        setLoading(true);
         await csrf();
         setErrors([])
         try{
-            await axios.post('/register', data).then(response => {                                
-                
+            await axios.post('/register', data).then(response => {                                                
                 navigate("/")
             }).catch(err => {
                 if(err.response.status === 422)
@@ -58,12 +58,15 @@ export const AuthProvider = ({ children}) => {
             if(e.response.status === 422)
                     setErrors(e.response.data.errors)
         }
+        setLoading(false);
     }
 
     const logout = () => {
+        setLoading(true);
         axios.post('/logout').then(() => {
             setUser(null);
         })
+        setLoading(false);
     }
 
     useEffect(() => {

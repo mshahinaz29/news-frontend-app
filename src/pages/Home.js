@@ -1,7 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import useAuthContext from '../context/AuthContext'
-import axios from "../api/axios";
 import { getArticles, getArticleCategories, getArticleSources } from '../redux/actions/articleAction';
 import { useDispatch, useSelector } from 'react-redux';
 import InputDatepicker from '../components/InputDatepicker';
@@ -10,15 +9,13 @@ import { setFilter } from "../redux/slices/articleSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSliders } from '@fortawesome/free-solid-svg-icons'
 import LoaderSpinner from '../components/LoaderSpinner';
-import moment from 'moment';
 import Article from '../components/Article';
 import Pagination from '../components/Pagination';
 import { setPage } from "../redux/slices/articleSlice";
 
 const Home = () => {
-    // const [news, setNews] = useState([]);
+    const { user, loading } = useAuthContext()
     const { articles, filter, categories, sources, meta, isLoading, page } = useSelector((state) => state.articles);
-    const { user} = useAuthContext();
     const [showFilters, setShowFilters] = useState(false);
     const dispatch = useDispatch();    
    
@@ -49,7 +46,7 @@ const Home = () => {
     }, [])
 
     return (
-        <div className="max-w-7xl mx-auto mt-12">     
+        <div className="max-w-7xl mx-auto mt-12">                 
             {isLoading ? <LoaderSpinner text='Fetching Latest News...' subtext="Relax and sip some coffee" />:
             <>
             <div className="mx-auto max-w-2xl lg:mx-0">
@@ -140,7 +137,7 @@ const Home = () => {
             }
             
             
-
+            {loading ? <LoaderSpinner text='Logging Out' />: ''}
         </div>
     )
 }

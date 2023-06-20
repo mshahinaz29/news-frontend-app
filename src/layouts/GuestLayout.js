@@ -7,7 +7,7 @@ const GuestLayout = () => {
 
     return (
         loading ? 
-        <LoaderSpinner text={'Authenticating...'} subtext={''} /> 
+        <LoaderSpinner text={'Validating...'} subtext={''} /> 
         :
         (!user ? <Outlet /> : <Navigate to="/" />)
     )
